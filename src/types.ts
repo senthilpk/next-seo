@@ -10,6 +10,8 @@ export interface OpenGraphVideos {
   width?: number;
   height?: number;
   alt?: string;
+  type?: string;
+  secureUrl?: string;
 }
 
 export interface Address {
@@ -65,6 +67,7 @@ export type AggregateOffer = {
   lowPrice: string;
   highPrice?: string;
   offerCount?: string;
+  offers?: Offers | Offers[];
 };
 
 export interface OpenGraphVideoActors {
@@ -139,8 +142,18 @@ interface LanguageAlternate {
   href: string;
 }
 
+interface LinkTag {
+  rel: string;
+  href: string;
+  sizes?: string;
+  type?: string;
+  color?: string;
+  keyOverride?: string;
+}
+
 export interface BaseMetaTag {
   content: string;
+  keyOverride?: string;
 }
 
 export interface HTML5MetaTag extends BaseMetaTag {
@@ -170,6 +183,64 @@ export type MetaTag = HTML5MetaTag | RDFaMetaTag | HTTPEquivMetaTag;
 
 export type ImagePrevSize = 'none' | 'standard' | 'large';
 
+export type AggregateRating = {
+  ratingValue: string;
+  reviewCount?: string;
+  ratingCount?: string;
+  bestRating?: string;
+};
+
+export type GamePlayMode = 'CoOp' | 'MultiPlayer' | 'SinglePlayer';
+
+export type Review = {
+  author: Author;
+  datePublished?: string;
+  reviewBody?: string;
+  name?: string;
+  publisher?: Publisher;
+  reviewRating: ReviewRating;
+};
+
+export type ReviewRating = {
+  bestRating?: string;
+  ratingValue: string;
+  worstRating?: string;
+};
+
+export type Author = {
+  type: string;
+  name: string;
+};
+
+export type Publisher = {
+  type: string;
+  name: string;
+};
+
+export type ApplicationCategory =
+  | 'Game'
+  | 'SocialNetworking'
+  | 'Travel'
+  | 'Shopping'
+  | 'Sports'
+  | 'Lifestyle'
+  | 'Business'
+  | 'Design'
+  | 'Developer'
+  | 'Driver'
+  | 'Educational'
+  | 'Health'
+  | 'Finance'
+  | 'Security'
+  | 'Browser'
+  | 'Communication'
+  | 'DesktopEnhancement'
+  | 'Entertainment'
+  | 'Multimedia'
+  | 'Home'
+  | 'Utilities'
+  | 'Reference';
+
 export interface AdditionalRobotsProps {
   nosnippet?: boolean;
   maxSnippet?: number;
@@ -196,6 +267,7 @@ export interface NextSeoProps {
   facebook?: { appId: string };
   twitter?: Twitter;
   additionalMetaTags?: ReadonlyArray<MetaTag>;
+  additionalLinkTags?: ReadonlyArray<LinkTag>;
 }
 
 export interface DefaultSeoProps extends NextSeoProps {
